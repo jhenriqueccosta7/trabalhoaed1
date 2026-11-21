@@ -8,4 +8,6 @@
 - [x] Funções M02 implementadas em `src/lse.c` existente
 - [x] Teste M02 passa
 - [x] Resultado e decisões registrados no diário e relatório de testes
+
+> Itens desmarcados: ver justificativa no `docs/diario-de-bordo.md`, seção M04 ("Controle de versão").
  

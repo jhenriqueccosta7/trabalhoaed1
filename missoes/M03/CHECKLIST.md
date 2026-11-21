@@ -9,3 +9,5 @@
 - [x] Registrei resultados e casos-limite no relatório de testes.
 - [x] Acrescentei a seção M03 aos documentos sem apagar conteúdo anterior.
 - [ ] Fiz commit da entrega M03.
+
+> Itens desmarcados: ver justificativa no `docs/diario-de-bordo.md`, seção M04 ("Controle de versão").
