@@ -1,14 +1,14 @@
 # Diário de bordo
 ## Missão M01 — 09/11
-- **Integrantes e papéis:** José Henrique (Implementação e organização do repositório) e André Luiz (Testes e revisão de contratos).
+- **Integrantes e papéis:** José Henrique da Cruz Costa (Implementação e organização do repositório) e André Luiz de Souza Justino (Testes e revisão de contratos).
 - **Objetivo:** Implementar o TAD `t_musica` (criação e destruição de uma música).
 - **O que implementamos:** `musica_criar` e `musica_destruir` em `src/musica.c`.
 - **Decisão técnica e justificativa:** Cópia de `titulo` e `artista` com `strncpy` limitado ao tamanho do vetor e terminação `'\0'` forçada, evitando estouro de buffer com textos longos. `musica_destruir` recebe `void *` para poder ser usada como callback de `lse_destruir`.
-- **Problema encontrado e solução:** [preencher, se houve]
+- **Problema encontrado e solução:** Nenhum problema registrado até esse momento.
 - **Evidências de testes:** `./build/test_musica` -> `test_musica: OK`.
 - **Próxima ação:** Definir a interface e os contratos da lista (M02).
 ## Missão M02 — 11/11
-- **Integrantes e papéis:** José Henrique (Documentação e validação) e André Luiz (Implementação do tipo opaco).
+- **Integrantes e papéis:** José Henrique (Documentação e validação) e André Luiz de Souza Justino (Implementação do tipo opaco).
 - **Objetivo:** Definir o tipo opaco `t_lse` e implementar criação, consulta e destruição de lista vazia.
 - **O que implementamos:** `lse_criar`, `lse_tamanho`, `lse_primeiro` e `lse_destruir` em `src/lse.c`, mantendo `t_elem` e `struct lse` privados.
 - **Decisão técnica e justificativa:** Tipo opaco em `include/lse.h` para impedir que outros módulos dependam da estrutura interna da lista.
@@ -16,7 +16,7 @@
 - **Evidências de testes:** `./build/m02_incremental` -> `M02: teste de contrato passou.`
 - **Próxima ação:** Implementar encadeamento de nós e percurso por callback (M03).
 ## Missão M03 — 16/11
-- **Integrantes e papéis:** José Henrique (Implementação de encadeamento e percurso e relatório) e André Luiz (Escrita dos testes unitários e relatório).
+- **Integrantes e papéis:** José Henrique da Cruz Costa (Implementação de encadeamento e percurso e relatório) e André Luiz de Souz Justino (Escrita dos testes unitários e relatório).
 - **Objetivo:** Implementar inserção na cabeça, percurso via callback e destruição de nós com callback opcional para cargas.
 - **O que implementamos:** `lse_inserir_inicio`, `lse_percorrer` e a versão completa de `lse_destruir`, além dos casos de teste em `missoes/M03/test_m03.c`.
 - **Decisão técnica e justificativa:** Permitir `carga == NULL` na inserção (um nó continua sendo um nó) e delegar a liberação da carga ao callback opcional de `lse_destruir`. Em `lse_percorrer`, mantivemos `assert(lista != NULL)` como pré-condição, conforme visto em aula.
@@ -24,7 +24,7 @@
 - **Evidências de testes:** `./build/test_m03_incremental` -> `M03: todos os testes passaram.`
 - **Próxima ação:** Implementar inserção no fim, busca e remoção por chave (M04).
 ## Missão M04 — 18/11
-- **Integrantes e papéis:** José Henrique (Depuração, testes incrementais e documentação) e André Luiz (Implementação da busca/remoção e documentação).
+- **Integrantes e papéis:** José Henrique da Cruz Costa (Depuração, testes incrementais e documentação) e André Luiz de Souza Justino (Implementação da busca/remoção e documentação).
 - **Objetivo:** Implementar `lse_inserir_fim`, `lse_buscar`, `lse_remover` e `lse_remover_inicio` com comparador genérico.
 - **O que implementamos:** As quatro operações em `src/lse.c` e os cenários de cabeça, meio, cauda, chave ausente, argumentos inválidos e registro do tipo `musica_t` em `missoes/M04/test_m04.c`.
 - **Decisão técnica e justificativa:** Separar a liberação do nó (`free(cam)`) da propriedade da carga: a carga removida é devolvida ao chamador, que decide se deve liberá-la.
