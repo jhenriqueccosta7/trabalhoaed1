@@ -61,7 +61,7 @@ int lse_inserir_inicio(t_lse *lista, void *carga) {
     lista->tamanho++;
     return 1;
 }
-/* TODO M04 */
+/* TODO M04, OIIIIE(TEST)*/
 int lse_inserir_fim(t_lse *lista, void *carga) {
     if (lista == NULL) return 0;
 
@@ -187,4 +187,4 @@ void lse_destruir(t_lse *lista, t_lse_destruir_carga destruir_carga) {
         cam = prox;
     }
     free(lista);
-}
+} 
