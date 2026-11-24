@@ -137,29 +137,33 @@ void *lse_remover(t_lse *lista, const void *chave, t_lse_comparador comparar) {
     }
 }
 
-int lse_inserir_ordenado(t_lse *lista, void *carga, t_lse_comparador comparar) {
-    assert(lista != NULL);
-    assert(comparar != NULL);
+int lse_inserir_ordenado(t_lse *lista, void *nova_carga, t_lse_comparador comparar) {
+    if (lista == NULL || comparar == NULL) return 0;
 
-    t_elem *novo = criar_elem_lse(carga);
+    t_elem *novo = criar_elem_lse(nova_carga);
     if (novo == NULL) return 0;
 
     t_elem *ant = NULL;
     t_elem *cam = lista->inicio;
 
-    while (cam != NULL && comparar(cam->carga, carga) < 0) {
+    bool nao_encontrou_posicao = true;
+    while (cam != NULL && (nao_encontrou_posicao) < 0) {
+        void *carga = cam->carga;
+        if (comparar(nova_carga, carga) <= 0) {
         ant = cam;
         cam = cam->prox;
+    } else {
+        nao_encontrou_posicao = false;
     }
-
-    if (ant == NULL) {
+    }
+    if (ant == NULL) { // inserir no inicio
         novo->prox = lista->inicio;
         lista->inicio = novo;
-    } else {
+    } else { // inserir no final ou entre dois elementos
         novo->prox = cam;
         ant->prox = novo;
     }
-
+q
     lista->tamanho++;
     return 1;
 }
