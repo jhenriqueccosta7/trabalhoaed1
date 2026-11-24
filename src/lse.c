@@ -147,9 +147,9 @@ int lse_inserir_ordenado(t_lse *lista, void *nova_carga, t_lse_comparador compar
     t_elem *cam = lista->inicio;
 
     bool nao_encontrou_posicao = true;
-    while (cam != NULL && (nao_encontrou_posicao) < 0) {
+    while (cam != NULL && nao_encontrou_posicao) {
         void *carga = cam->carga;
-        if (comparar(nova_carga, carga) <= 0) {
+        if (comparar(carga, nova_carga) <= 0) {
         ant = cam;
         cam = cam->prox;
     } else {
