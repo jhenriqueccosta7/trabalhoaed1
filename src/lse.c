@@ -163,7 +163,6 @@ int lse_inserir_ordenado(t_lse *lista, void *nova_carga, t_lse_comparador compar
         novo->prox = cam;
         ant->prox = novo;
     }
-q
     lista->tamanho++;
     return 1;
 }
