@@ -3,9 +3,9 @@
 - [X] Salvei um checkpoint do projeto antes de instalar a missão.
 - [X] Mantive o Makefile principal e os fontes existentes.
 - [X] Implementei `lse_inserir_ordenado` com comparador genérico.
-- [ ] Testei lista vazia, início, meio, fim e empates estáveis.
-- [ ] Mantive `t_elem` privado e `tamanho` correto.
-- [ ] Verifiquei argumentos inválidos e ausência de alteração em falha.
-- [ ] Executei os testes M05 e a regressão M03/M04.
-- [ ] Atualizei contratos, arquitetura, diário de bordo e relatório de testes.
-- [ ] Registrei commit de conclusão da M05.
+- [X] Testei lista vazia, início, meio, fim e empates estáveis.
+- [X] Mantive `t_elem` privado e `tamanho` correto.
+- [X] Verifiquei argumentos inválidos e ausência de alteração em falha.
+- [X] Executei os testes M05 e a regressão M03/M04.
+- [X] Atualizei contratos, arquitetura, diário de bordo e relatório de testes.
+- [X] Registrei commit de conclusão da M05.
