@@ -32,4 +32,17 @@
 - **Evidências de testes:** `make test_missoes` -> M02, M03 e M04 aprovados. Execução com AddressSanitizer sem erros nem vazamentos.
 - **Controle de versão e itens não marcados nos checklists:** Nas missões M01 a M03, não entendemos que os checklists pediam commits (ou cópias de segurança) antes de começar e ao concluir cada missão. Focamos diretamente na implementação do código e na execução dos testes, sem salvar checkpoints intermediários. O repositório Git foi criado apenas nesta entrega, com um commit contendo o estado completo das missões M01 a M04. Por isso, deixamos desmarcados os itens de commit/checkpoint dos checklists da M02, M03 e M04, já que não foram realizados no momento previsto. A partir da M06 e as demais entregas iremos nos atentar melhor e faremos um commit antes de começar e outro ao concluir cada missão.
 - **Próxima ação:** Inserção ordenada e ampliação dos testes (M05).
- 
+## Missão M05 — 23/11
+- **Integrantes e papéis:** André Luiz de Souza Justino (Implementação de `lse_inserir_ordenado` e escrita do `test_m05.c`) e José Henrique da Cruz Costa (Revisão, documentação e checklist).
+- **Objetivo:** Implementar a inserção ordenada genérica e estável, mantendo `t_elem` privado e `tamanho` correto.
+- **O que implementamos:** `lse_inserir_ordenado` em `src/lse.c` e os testes de `missoes/M05/test_m05.c` (lista vazia, início, meio, fim, empates estáveis com registros `musica_t`, argumentos inválidos e remoção seguida de reinserção).
+- **Decisão técnica e justificativa:** O laço avança enquanto `comparar(atual, nova) <= 0`; o uso de `<=` (e não `<`) garante a estabilidade, pois elementos de mesma chave ficam na ordem de chegada. Argumentos inválidos são tratados de forma defensiva (retorno `0`), seguindo o padrão da M04.
+- **Problema encontrado e solução:** A primeira versão da função precisou de ajustes (commits "M5 - lse_inserir_ordenado implementada" e "M05: lse_inserir_ordenado corrigida!"). Revisamos o religamento dos ponteiros `ant`/`novo`/`cam` nos casos de início e fim até que todos os cenários do `test_m05` passassem.
+- **Reflexões da missão:**
+  - *Por que inserir no início é O(1) e a ordenada é O(n)?* No início só mudam `novo->prox` e `inicio`; na ordenada é preciso percorrer até achar a posição, que no pior caso é o fim.
+  - *Risco de critérios diferentes na mesma lista:* a pré-condição de lista ordenada deixa de valer e as inserções seguintes ficam em posições sem sentido.
+  - *Comparador:* permite ordenar por título, duração ou `id` apenas trocando o callback, sem mudar `lse.c`.
+  - *Chaves iguais:* mantêm a ordem relativa de chegada (estabilidade).
+- **Evidências de testes:** `make test_m05` -> `M05: todos os testes passaram.`; regressão `make test_m03` e `make test_m04` aprovada.
+- **Controle de versão:** checkpoint antes de iniciar (commit "Checkpoint inicial antes de implementar M05") e commit de conclusão da M05 com esta documentação.
+- **Próxima ação:** Implementar a pilha como especialização da LSE (M06 — 25/11).

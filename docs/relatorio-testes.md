@@ -14,6 +14,10 @@
 | T11 | M04 | lse_remover_inicio | lista vazia; depois 5, 5, 8 removidos um a um | `NULL` na vazia; cargas na ordem `&a`, `&b`, `&c`; `NULL` ao esvaziar | conforme esperado | passou |
 | T12 | M04 | lse_buscar / remover | registro `musica_t` com comparador por `id` | localiza e remove `id = 22` | `&b` retornado; resta 1 elemento | passou |
 | T13 | M04 | todas as funções da M04 | `lista == NULL` e `comparar == NULL` | retorno `0` ou `NULL`, sem falha | retornos defensivos confirmados | passou |
+| T14 | M05 | lse_inserir_ordenado | inserir 30, 10, 20, 40 em lista vazia | ordem 10, 20, 30, 40 após cada etapa (vazia, início, meio, fim) | conforme esperado | passou |
+| T15 | M05 | lse_inserir_ordenado (estabilidade) | `musica_t` com ids 10, 10, 5, 10 | ordem 5, 10 (primeira), 10 (segunda), 10 (terceira) | conforme esperado | passou |
+| T16 | M05 | lse_inserir_ordenado | `lista == NULL` e `comparar == NULL` | retorno `0` e lista inalterada | retorno `0`; tamanho preservado | passou |
+| T17 | M05 | lse_remover + lse_inserir_ordenado | remover 20 de 10, 20, 30 e reinserir | 20 volta para o meio; tamanho 3 | conforme esperado | passou |
  
 ## Casos-limite
 - **Estrutura vazia:** `lse_tamanho` retorna `0`; `lse_primeiro`, `lse_remover_inicio`, `lse_buscar` e `lse_remover` retornam `NULL`; `lse_percorrer` não chama o callback.
@@ -30,4 +34,4 @@
   1. O `test_m03.c` vinha com as funções de teste contendo apenas `assert(1==0)` (falha proposital até a implementação dos testes); escrevemos os casos de teste T03 a T07.
   2. Funções da M04 abortavam com `assert(lista != NULL)` quando recebiam lista nula; trocamos por retorno defensivo (`0`/`NULL`), conforme o contrato da missão.
   3. `lse_buscar` e `lse_remover` não verificavam `comparar == NULL`, o que causaria falha de segmentação; incluímos a verificação.
- 
+  4. M05: `lse_inserir_ordenado` precisou de correção no religamento dos ponteiros; após o ajuste, T14 a T17 passaram e a regressão M03/M04 continuou aprovada.

@@ -114,3 +114,16 @@ Nas funções defensivas, a seção "Pré-condições" indica "Nenhuma", e o com
 - **Memória:** Libera **apenas o nó**.
 - **Invariantes:** Se `tamanho == 0`, `inicio == NULL`.
 - **Testes:** `test_m04` (`teste_remover_inicio`, `teste_argumentos_invalidos`).
+
+---
+
+## Contratos — Missão M05
+### `int lse_inserir_ordenado(t_lse *lista, void *nova_carga, t_lse_comparador comparar)`
+- **Pré-condições:** A lista já está ordenada pelo **mesmo** critério de `comparar`. Corrigir uma lista desordenada não é responsabilidade da operação. `lista == NULL` e `comparar == NULL` são tratados de forma defensiva (ver retorno).
+- **Pós-condições:** Em sucesso, o novo nó é inserido antes do primeiro nó cuja carga é **maior** que `nova_carga`, ou no fim se não houver; a lista continua ordenada e `tamanho` aumenta exatamente 1. Em empates, o novo elemento fica **depois** dos já existentes (inserção estável). Em falha, a lista não é alterada.
+- **Comparação:** chamada como `comparar(carga_existente, nova_carga)`. Aqui os dois argumentos são **cargas** (na busca da M04, o segundo argumento era uma chave). O retorno é negativo, zero ou positivo.
+- **Valor de retorno:** `1` em sucesso; `0` se `lista == NULL`, `comparar == NULL` ou se a alocação do nó falhar.
+- **Memória:** Aloca um `t_elem`; **não** copia a carga nem assume sua propriedade.
+- **Complexidade:** O(n) de tempo e O(1) de espaço extra.
+- **Invariantes:** `inicio` aponta para o menor elemento (ou `NULL` se vazia); nenhum nó fica inacessível; não há ciclos; o último nó aponta para `NULL`.
+- **Testes:** `test_m05` (`teste_vazia_inicio_meio_fim`, `teste_duplicados_estaveis`, `teste_invalido_e_reinsercao`).

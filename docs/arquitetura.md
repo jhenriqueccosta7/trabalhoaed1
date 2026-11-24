@@ -36,4 +36,13 @@ MiniPlayer → (LSE, Pilha, Fila) → LSE → t_elem interno.
   - *Cauda (`[C]`):* `ant->prox = cam->prox` (`NULL`), libera o nó de `[C]`, `tamanho = 2`.
   - Em todos os casos, apenas o **nó** é liberado; a carga é devolvida ao chamador.
 - **Ambiguidade do retorno `NULL`:** a M03 permite inserir carga `NULL`, e a M04 usa `NULL` para sinalizar "não encontrado", "lista vazia" ou "argumento inválido". Assim, não é possível distinguir uma falha de um nó encontrado cuja carga era `NULL`. Por isso, os testes de busca e remoção não usam cargas `NULL`. Uma API futura poderia retornar um código de status (`int`: `1` sucesso, `0` falha) e devolver a carga por um parâmetro de saída (`void **carga_saida`).
- 
+## Missão M05 — Inserção ordenada
+- **Algoritmo (`lse_inserir_ordenado`):** usa três ponteiros: `novo` (nó alocado), `ant` (anterior) e `cam` (atual). O laço avança enquanto `comparar(cam->carga, nova_carga) <= 0`; ao parar, o novo nó é ligado entre `ant` e `cam`.
+- **Desenho dos quatro casos:**
+  - *Lista vazia:* `ant == NULL`, `cam == NULL` → `novo->prox = NULL`, `inicio -> [novo]`.
+  - *Início (`[20] -> [30]`, inserindo 10):* o laço para no primeiro nó, `ant == NULL` → `novo->prox = inicio`, `inicio = novo`.
+  - *Meio (`[10] -> [30]`, inserindo 20):* para em `cam = [30]`, `ant = [10]` → `novo->prox = cam`, `ant->prox = novo`.
+  - *Fim (`[10] -> [20]`, inserindo 30):* `cam` chega a `NULL`, `ant = [20]` → `novo->prox = NULL`, `ant->prox = novo`.
+- **Estabilidade:** como o laço usa `<= 0`, ele passa por todos os elementos com chave igual e o novo elemento entra **depois** deles, preservando a ordem de chegada.
+- **Comparador genérico:** `t_lse_comparador` decide a ordem; `lse.c` não conhece `t_musica`. Para ordenar por título, duração ou `id` basta trocar o callback, sem alterar a lista.
+- **Complexidade:** tempo O(n) no pior caso (inserção no fim ou percurso até a posição); O(1) no melhor caso (lista vazia ou inserção no início). Espaço O(1) extra além do nó alocado.
