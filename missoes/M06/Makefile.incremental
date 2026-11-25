@@ -1,0 +1,9 @@
+M06_CC := $(CC)
+M06_CFLAGS := -std=c11 -Wall -Wextra -Wpedantic -g -Iinclude
+TESTES_MISSOES += test_m06
+.PHONY: test_m06
+build/test_m06_incremental: missoes/M06/test_m06.c src/pilha.c src/lse.c include/pilha.h include/lse.h
+	@mkdir -p build
+	$(M06_CC) $(M06_CFLAGS) missoes/M06/test_m06.c src/pilha.c src/lse.c -o $@
+test_m06: build/test_m06_incremental
+	./build/test_m06_incremental
